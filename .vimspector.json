@@ -1,0 +1,14 @@
+{
+  "configurations": {
+    "Java Launch": {
+      "adapter": "vscode-java",
+      "configuration": {
+        "request": "launch",
+        "mainClass": "com.example.applier.ApplierApplication",
+        "projectName": "applier",
+        "cwd": "${workspaceRoot}",
+        "console": "integratedTerminal"
+      }
+    }
+  }
+}

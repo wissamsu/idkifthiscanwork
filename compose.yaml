@@ -1,0 +1,90 @@
+services:
+  # applier:
+  #   build: .
+  #   ports:
+  #     - "8081:8081"
+  #   environment:
+  #     - "SPRING_PROFILES_ACTIVE=dev"
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #     postgres_keycloak:
+  #       condition: service_healthy
+  #     keycloak:
+  #       condition: service_healthy
+  postgres:
+    image: "postgres:latest"
+    environment:
+      - "POSTGRES_DB=applier"
+      - "POSTGRES_PASSWORD=Dontplay.12"
+      - "POSTGRES_USER=wissam"
+    ports:
+      - "5432:5432"
+    dns:
+      - "8.8.8.8"
+      - "1.1.1.1"
+    volumes:
+      - "postgres-data:/var/lib/postgresql"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U wissam -d applier" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - keycloak_network
+  postgres_keycloak:
+    image: postgres:16-alpine
+    container_name: postgres_keycloak
+    labels:
+      org.springframework.boot.ignore: "true"
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_keycloak_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: postgres_keycloak
+      POSTGRES_USER: postgres_keycloak
+      POSTGRES_PASSWORD: password123
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres_keycloak -d postgres_keycloak" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - keycloak_network
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0
+    container_name: keycloak_web
+    command: start-dev
+    ports:
+      - "8080:8080"
+    environment:
+      # Database Configuration
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres_keycloak:5432/postgres_keycloak
+      KC_DB_USERNAME: postgres_keycloak
+      KC_DB_PASSWORD: password123
+
+      # Admin Credentials
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin_password123
+
+      # Health and Metrics
+      KC_HEALTH_ENABLED: "true"
+      KC_METRICS_ENABLED: "true"
+    depends_on:
+      postgres_keycloak:
+        condition: service_healthy
+    networks:
+      - keycloak_network
+    healthcheck:
+      interval: 5s
+      timeout: 5s
+      retries: 5
+volumes:
+  postgres-data:
+  postgres_keycloak_data:
+networks:
+  keycloak_network:
+    driver: bridge
