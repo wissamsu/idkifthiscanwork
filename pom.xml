@@ -1,210 +1,202 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
-  xmlns="http://maven.apache.org/POM/4.0.0">
-  <url>
-  </url>
-  <artifactId>Applier</artifactId>
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <scope>import</scope>
-        <groupId>org.springframework.ai</groupId>
-        <artifactId>spring-ai-bom</artifactId>
-        <version>${spring-ai.version}</version>
-        <type>pom</type>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-  <groupId>com.wissam</groupId>
-  <scm>
-    <url>
-    </url>
-    <developerConnection>
-    </developerConnection>
-    <connection>
-    </connection>
-    <tag>
-    </tag>
-  </scm>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0">
+  <name>Applier</name>
+  <licenses>
+    <license/>
+  </licenses>
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <version>4.1.1</version>
+    <relativePath/>
+    <artifactId>spring-boot-starter-parent</artifactId>
+  </parent>
   <version>0.0.1-SNAPSHOT</version>
   <dependencies>
     <dependency>
-      <artifactId>cloudinary-http44</artifactId>
-      <version>1.38.0</version>
       <groupId>com.cloudinary</groupId>
+      <version>1.38.0</version>
+      <artifactId>cloudinary-http44</artifactId>
     </dependency>
     <dependency>
-      <artifactId>playwright</artifactId>
-      <version>1.63.0</version>
       <groupId>com.microsoft.playwright</groupId>
+      <version>1.63.0</version>
+      <artifactId>playwright</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
-      <groupId>org.springframework.boot</groupId>
     </dependency>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-webmvc</artifactId>
-      <groupId>org.springframework.boot</groupId>
     </dependency>
     <dependency>
-      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-      <version>3.1.0</version>
       <groupId>org.springdoc</groupId>
+      <version>3.1.0</version>
+      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.springframework.ai</groupId>
       <artifactId>spring-ai-pdf-document-reader</artifactId>
-      <groupId>org.springframework.ai</groupId>
     </dependency>
     <dependency>
+      <groupId>org.springframework.ai</groupId>
       <artifactId>spring-ai-starter-model-openai</artifactId>
-      <groupId>org.springframework.ai</groupId>
     </dependency>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security</artifactId>
-      <groupId>org.springframework.boot</groupId>
     </dependency>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security-oauth2-resource-server</artifactId>
-      <groupId>org.springframework.boot</groupId>
     </dependency>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-oauth2-client</artifactId>
-      <groupId>org.springframework.boot</groupId>
     </dependency>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <scope>test</scope>
       <artifactId>spring-boot-starter-security-oauth2-resource-server-test</artifactId>
-      <scope>test</scope>
-      <groupId>org.springframework.boot</groupId>
     </dependency>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <scope>test</scope>
       <artifactId>spring-boot-starter-security-test</artifactId>
-      <scope>test</scope>
-      <groupId>org.springframework.boot</groupId>
     </dependency>
     <dependency>
-      <scope>runtime</scope>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
       <optional>true</optional>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
-      <scope>runtime</scope>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-docker-compose</artifactId>
       <optional>true</optional>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
-      <artifactId>postgresql</artifactId>
-      <scope>runtime</scope>
       <groupId>org.postgresql</groupId>
+      <scope>runtime</scope>
+      <artifactId>postgresql</artifactId>
     </dependency>
     <dependency>
-      <scope>runtime</scope>
       <groupId>org.springframework.ai</groupId>
       <artifactId>spring-ai-spring-boot-docker-compose</artifactId>
       <optional>true</optional>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
-      <artifactId>lombok</artifactId>
-      <optional>true</optional>
       <groupId>org.projectlombok</groupId>
+      <optional>true</optional>
+      <artifactId>lombok</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <scope>test</scope>
       <artifactId>spring-boot-starter-data-jpa-test</artifactId>
-      <scope>test</scope>
-      <groupId>org.springframework.boot</groupId>
     </dependency>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <scope>test</scope>
       <artifactId>spring-boot-starter-webmvc-test</artifactId>
-      <scope>test</scope>
-      <groupId>org.springframework.boot</groupId>
     </dependency>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <scope>test</scope>
       <artifactId>spring-boot-testcontainers</artifactId>
-      <scope>test</scope>
-      <groupId>org.springframework.boot</groupId>
     </dependency>
     <dependency>
-      <artifactId>spring-ai-spring-boot-testcontainers</artifactId>
-      <scope>test</scope>
       <groupId>org.springframework.ai</groupId>
+      <scope>test</scope>
+      <artifactId>spring-ai-spring-boot-testcontainers</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.testcontainers</groupId>
+      <scope>test</scope>
       <artifactId>testcontainers-junit-jupiter</artifactId>
-      <scope>test</scope>
-      <groupId>org.testcontainers</groupId>
     </dependency>
     <dependency>
-      <artifactId>testcontainers-postgresql</artifactId>
-      <scope>test</scope>
       <groupId>org.testcontainers</groupId>
+      <scope>test</scope>
+      <artifactId>testcontainers-postgresql</artifactId>
     </dependency>
   </dependencies>
-  <licenses>
-    <license>
-    </license>
-  </licenses>
-  <modelVersion>4.0.0</modelVersion>
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <groupId>org.springframework.boot</groupId>
-      </plugin>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>default-compile</id>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-            <configuration>
-              <annotationProcessorPaths>
-                <path>
-                  <artifactId>lombok</artifactId>
-                  <groupId>org.projectlombok</groupId>
-                </path>
-              </annotationProcessorPaths>
-            </configuration>
-            <phase>compile</phase>
-          </execution>
-          <execution>
-            <id>default-testCompile</id>
-            <goals>
-              <goal>testCompile</goal>
-            </goals>
-            <configuration>
-              <annotationProcessorPaths>
-                <path>
-                  <artifactId>lombok</artifactId>
-                  <groupId>org.projectlombok</groupId>
-                </path>
-              </annotationProcessorPaths>
-            </configuration>
-            <phase>test-compile</phase>
-          </execution>
-        </executions>
-        <groupId>org.apache.maven.plugins</groupId>
-      </plugin>
-    </plugins>
-  </build>
+  <scm>
+    <tag/>
+    <developerConnection/>
+    <connection/>
+    <url/>
+  </scm>
   <description>Demo project for Spring Boot</description>
-  <name>Applier</name>
+  <modelVersion>4.0.0</modelVersion>
   <developers>
-    <developer>
-    </developer>
+    <developer/>
   </developers>
-  <parent>
-    <relativePath>
-    </relativePath>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>4.1.1</version>
-  </parent>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <version>${spring-ai.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+        <artifactId>spring-ai-bom</artifactId>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <properties>
     <java.version>21</java.version>
     <spring-ai.version>2.0.1</spring-ai.version>
   </properties>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <id>default-compile</id>
+            <phase>compile</phase>
+            <configuration>
+              <annotationProcessorPaths>
+                <path>
+                  <groupId>org.projectlombok</groupId>
+                  <artifactId>lombok</artifactId>
+                </path>
+              </annotationProcessorPaths>
+            </configuration>
+          </execution>
+          <execution>
+            <goals>
+              <goal>testCompile</goal>
+            </goals>
+            <id>default-testCompile</id>
+            <phase>test-compile</phase>
+            <configuration>
+              <annotationProcessorPaths>
+                <path>
+                  <groupId>org.projectlombok</groupId>
+                  <artifactId>lombok</artifactId>
+                </path>
+              </annotationProcessorPaths>
+            </configuration>
+          </execution>
+        </executions>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+  <url/>
+  <groupId>com.wissam</groupId>
+  <artifactId>Applier</artifactId>
 </project>
