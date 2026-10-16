@@ -126,9 +126,11 @@ public class AutomationHelper {
             .call()
             .content();
         System.out.println(answer);
-        if (!answer.isBlank())
-          // remember to save answers when fetched
+        if (!answer.isBlank()) {
+          Answers answerAdd = Answers.builder().user(user).question(question).answer(answer).build();
+          answersRepo.save(answerAdd);
           page.locator("input[type='text'][id='" + id + "']").fill(answer.strip());
+        }
       } else if (page.locator("[role='combobox'][aria-labelledby='" + id + "-label']").count() > 0) {
         Locator combobox = page.locator("[role='combobox'][aria-labelledby='" + id + "-label']");
         Locator listbox = page.locator("[id='listbox-id-" + id + "']");
@@ -164,6 +166,8 @@ public class AutomationHelper {
           answer = match;
         }
 
+        Answers answerAdd = Answers.builder().user(user).question(question).answer(answer).build();
+        answersRepo.save(answerAdd);
         combobox.click();
         listbox.getByText(answer, new Locator.GetByTextOptions().setExact(true)).click();
       }
@@ -201,6 +205,9 @@ public class AutomationHelper {
       }
 
       final String finalAnswer = answer;
+
+      Answers answerAdd = Answers.builder().user(user).question(question).answer(answer).build();
+      answersRepo.save(answerAdd);
       String match = options.stream()
           .filter(o -> o.equalsIgnoreCase(finalAnswer))
           .findFirst().orElse(null);

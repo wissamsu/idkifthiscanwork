@@ -34,7 +34,7 @@ public class PlaywrightConfig {
   Browser browser(Playwright playwright) {
 
     int randomSlowMo = random.nextInt(2000);
-    return playwright.chromium().launch(new LaunchOptions().setHeadless(false).setSlowMo(randomSlowMo)
+    return playwright.chromium().launch(new LaunchOptions().setHeadless(true).setSlowMo(randomSlowMo)
         .setArgs(List.of("--disable-blink-features=AutomationControlled")));
   }
 

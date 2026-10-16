@@ -33,7 +33,7 @@ public class ApplyAuto {
     Locator jobsList = page.locator(selectors.jobsList());
     int numberOfPages = Integer.parseInt(page.locator(selectors.numberOfPages()).nth(3).textContent());
     for (int j = 1; j < numberOfPages; j++) {
-      page.navigate("https://wvu.joinhandshake.com/job-search/11425383?page=" + j + "&per_page=25");
+      page.navigate("https://wvu.joinhandshake.com/job-search/?query=java&page=" + j + "&per_page=25");
       page.waitForLoadState(LoadState.DOMCONTENTLOADED);
       for (int i = 0; i < jobsList.count(); i++) {
         jobsList.nth(i).click();
