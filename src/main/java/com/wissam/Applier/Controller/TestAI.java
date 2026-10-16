@@ -36,11 +36,15 @@ public class TestAI {
     return text;
   }
 
-  @GetMapping("/user")
+  @PostMapping(value = "/user")
   public void automate(@AuthenticationPrincipal OidcUser oidcUser) {
     User user2 = userRepository.findByEmail(oidcUser.getEmail())
         .orElseThrow(() -> new IllegalArgumentException("User not found"));
-    applyAuto.skimJobs(user2);
+    try {
+      applyAuto.skimJobs(user2, aiTools.urlToMultipartFile(user2.getResumeLink()));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @PostMapping(path = "/pdf", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)

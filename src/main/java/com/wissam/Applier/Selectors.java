@@ -9,6 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public record Selectors(String jobsList,
     String quickApplyButton,
     String easyApplyResumeUpload,
+    String contentBox,
     String numberOfPages,
     String normalApplyButton) {
 }

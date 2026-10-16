@@ -1,6 +1,7 @@
 package com.wissam.Applier.Automation;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
@@ -23,7 +24,7 @@ public class ApplyAuto {
   private final Selectors selectors;
   private final AutomationHelper automationHelper;
 
-  public void skimJobs(User user) {
+  public void skimJobs(User user, MultipartFile file) {
     if (user.getResumeLink() == null) {
       throw new RuntimeException("Resume link is null");
     }
@@ -44,7 +45,7 @@ public class ApplyAuto {
           continue;
         }
         if (page.locator(selectors.normalApplyButton()).count() > 0) {
-          normalApply(page, user);
+          normalApply(page, user, file);
           continue;
         }
       }
@@ -61,10 +62,10 @@ public class ApplyAuto {
     automationHelper.submitAndBypass(page);
   }
 
-  public void normalApply(Page page, User user) {
+  public void normalApply(Page page, User user, MultipartFile file) {
     page.locator(selectors.normalApplyButton()).first().click();
     automationHelper.attachFiles(page, user);
-    automationHelper.fillAnswers(page, user);
+    automationHelper.fillAnswers(page, user, page.locator(selectors.contentBox()), file);
     automationHelper.submitAndBypass(page);
   }
 
