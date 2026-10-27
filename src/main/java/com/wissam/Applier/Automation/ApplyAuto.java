@@ -1,5 +1,9 @@
 package com.wissam.Applier.Automation;
 
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -8,6 +12,7 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.LoadState;
 import com.wissam.Applier.Selectors;
+import com.wissam.Applier.AiTooling.AiTools;
 import com.wissam.Applier.Model.User;
 
 import lombok.RequiredArgsConstructor;
@@ -24,6 +29,8 @@ public class ApplyAuto {
   private final LoginAuto loginAuto;
   private final Selectors selectors;
   private final AutomationHelper automationHelper;
+  private final Set<UUID> running = ConcurrentHashMap.newKeySet();
+  private final AiTools aiTools;
 
   public void skimJobs(User user, MultipartFile file) {
     if (user.getResumeLink() == null) {
@@ -94,6 +101,31 @@ public class ApplyAuto {
       automationHelper.attachFilesGreenHouse(page, user);
       automationHelper.fillAnswersGreenHouse(page, user, contentBox, resume);
       job.scrollIntoViewIfNeeded();
+    }
+  }
+
+  @Async
+  public void runAutomation100Times(User user) {
+    if (!running.add(user.getId())) {
+      return;
+    }
+
+    try {
+      for (int i = 1; i <= 100; i++) {
+        System.out.println("Running iteration " + i + " of 100 for user: " + user.getId());
+        try {
+          skimJobsGreenHouse(user, aiTools.urlToMultipartFile(user.getResumeLink()));
+        } catch (Exception e) {
+          e.printStackTrace();
+          break;
+        }
+
+        Thread.sleep(2000);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      running.remove(user.getId());
     }
   }
 

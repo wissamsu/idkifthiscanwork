@@ -1,9 +1,5 @@
 package com.wissam.Applier.Controller;
 
-import java.util.Set;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -33,21 +29,14 @@ public class TestAI {
   private final ApplyAuto applyAuto;
   private final UserRepository userRepository;
 
-  private final Set<UUID> running = ConcurrentHashMap.newKeySet();
-
   @PostMapping(value = "/greenhouse")
   public void automateGreenHouse(@AuthenticationPrincipal OidcUser oidcUser) {
 
     User user2 = userRepository.findByEmail(oidcUser.getEmail())
         .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-    if (!running.add(user2.getId())) {
-      return;
-    }
     try {
-      for (int i = 0; i < 100; i++) {
-        applyAuto.skimJobsGreenHouse(user2, aiTools.urlToMultipartFile(user2.getResumeLink()));
-      }
+      applyAuto.runAutomation100Times(user2);
     } catch (Exception e) {
       e.printStackTrace();
     }
