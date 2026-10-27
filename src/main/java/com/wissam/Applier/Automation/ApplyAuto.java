@@ -1,5 +1,6 @@
 package com.wissam.Applier.Automation;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -60,6 +61,7 @@ public class ApplyAuto {
     page.locator(selectors.quickApplyButton()).first().click();
     automationHelper.attachFiles(page, user);
     automationHelper.submitAndBypass(page);
+    log.info("Application submitted");
   }
 
   public void normalApply(Page page, User user, MultipartFile file) {
@@ -67,6 +69,7 @@ public class ApplyAuto {
     automationHelper.attachFiles(page, user);
     automationHelper.fillAnswers(page, user, page.locator(selectors.contentBox()), file);
     automationHelper.submitAndBypass(page);
+    log.info("Application submitted");
   }
 
   public boolean withdrawApplication(Page page, User user) {
@@ -75,4 +78,23 @@ public class ApplyAuto {
     }
     return false;
   }
+
+  @Async
+  public void skimJobsGreenHouse(User user, MultipartFile resume) {
+    if (user.getResumeLink() == null) {
+      throw new RuntimeException("Resume link is null");
+    }
+    Page page = loginAuto.loginGreenHouse(user);
+    page.navigate("https://my.greenhouse.io/jobs/search?query=java");
+
+    Locator jobs = page.locator("div[data-provides='search-result']");
+    for (Locator job : jobs.all()) {
+      job.locator("a").click();
+      Locator contentBox = page.locator("div[data-slot='dialog-content']");
+      automationHelper.attachFilesGreenHouse(page, user);
+      automationHelper.fillAnswersGreenHouse(page, user, contentBox, resume);
+      job.scrollIntoViewIfNeeded();
+    }
+  }
+
 }

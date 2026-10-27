@@ -1,10 +1,13 @@
 package com.wissam.Applier.Controller;
 
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,13 +33,27 @@ public class TestAI {
   private final ApplyAuto applyAuto;
   private final UserRepository userRepository;
 
-  @GetMapping("test")
-  public String test() {
-    String text = chatClient.prompt("How old am i(note i'm 18)").call().content();
-    return text;
+  private final Set<UUID> running = ConcurrentHashMap.newKeySet();
+
+  @PostMapping(value = "/greenhouse")
+  public void automateGreenHouse(@AuthenticationPrincipal OidcUser oidcUser) {
+
+    User user2 = userRepository.findByEmail(oidcUser.getEmail())
+        .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+    if (!running.add(user2.getId())) {
+      return;
+    }
+    try {
+      for (int i = 0; i < 100; i++) {
+        applyAuto.skimJobsGreenHouse(user2, aiTools.urlToMultipartFile(user2.getResumeLink()));
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
-  @PostMapping(value = "/user")
+  @PostMapping(value = "/handshake")
   public void automate(@AuthenticationPrincipal OidcUser oidcUser) {
     User user2 = userRepository.findByEmail(oidcUser.getEmail())
         .orElseThrow(() -> new IllegalArgumentException("User not found"));

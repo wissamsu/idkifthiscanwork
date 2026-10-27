@@ -14,6 +14,6 @@ import com.wissam.Applier.Model.Answers;
 @Repository
 public interface AnswersRepository extends JpaRepository<Answers, Long> {
 
-  Optional<Answers> findAnswerByUser_IdAndQuestion(UUID userId, String question);
+  Optional<Answers> findFirstByUser_IdAndQuestion(UUID userId, String question);
 
 }

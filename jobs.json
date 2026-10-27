@@ -1,0 +1,51 @@
+{
+  "nonce" : "kKcns/9uhHj6Z80IiT7RQQ==",
+  "currentUserId" : null,
+  "currentUserEmail" : null,
+  "locationControlSettings" : {
+    "apiKey" : "ge-39f1178289d5d0c5",
+    "baseUrl" : "https://api-geocode-earth-proxy.greenhouse.io/",
+    "locationTypes" : [ "city", "state", "country" ]
+  },
+  "url" : "/users/sign_in",
+  "flash" : { },
+  "referrer" : "https://my.greenhouse.io/dashboard",
+  "survey" : null,
+  "forethought" : {
+    "enabled" : true,
+    "apiKey" : "b2ada1d0-9ae8-4c32-bfa4-075f247521b8",
+    "email" : null,
+    "fullName" : null,
+    "loggedIn" : false
+  },
+  "recommendationsPath" : "/recommendations",
+  "jobBoardToken" : null,
+  "createPath" : "/users/sign_in",
+  "submitCodePath" : "/users/submit_code",
+  "ghrUrl" : "https://app.greenhouse.io/users/sign_in",
+  "loginError" : null,
+  "socialLogin" : {
+    "authenticityToken" : "pttgeU4R7QdJD7Tkrm6Hn73xiFDWvl-qu6fnUJoor52eLzJ7r4GyoZssHIwyZeqy74MDIpsR3HZDLyaHQosOnw",
+    "returnPath" : null,
+    "lastUsedProvider" : null,
+    "providers" : [ {
+      "id" : "google_oauth2",
+      "name" : "Google",
+      "path" : "/users/auth/google_oauth2"
+    }, {
+      "id" : "apple",
+      "name" : "Apple",
+      "path" : "/users/auth/apple"
+    }, {
+      "id" : "linkedin",
+      "name" : "LinkedIn",
+      "path" : "/users/auth/linkedin"
+    } ]
+  },
+  "identityVerificationPartner" : null,
+  "identityVerificationCompanyName" : null,
+  "authTracking" : {
+    "signInAttemptId" : "cb7b9243-b8b9-4b80-87f9-3ca69c76bbde",
+    "variant" : "copy_c"
+  }
+}

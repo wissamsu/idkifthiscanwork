@@ -4,12 +4,12 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0">
   <name>Applier</name>
   <licenses>
-    <license/>
+    <license />
   </licenses>
   <parent>
     <groupId>org.springframework.boot</groupId>
     <version>4.1.1</version>
-    <relativePath/>
+    <relativePath />
     <artifactId>spring-boot-starter-parent</artifactId>
   </parent>
   <version>0.0.1-SNAPSHOT</version>
@@ -125,17 +125,22 @@
       <scope>test</scope>
       <artifactId>testcontainers-postgresql</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.jsoup</groupId>
+      <artifactId>jsoup</artifactId>
+      <version>1.21.1</version>
+    </dependency>
   </dependencies>
   <scm>
-    <tag/>
-    <developerConnection/>
-    <connection/>
-    <url/>
+    <tag />
+    <developerConnection />
+    <connection />
+    <url />
   </scm>
   <description>Demo project for Spring Boot</description>
   <modelVersion>4.0.0</modelVersion>
   <developers>
-    <developer/>
+    <developer />
   </developers>
   <dependencyManagement>
     <dependencies>
@@ -196,7 +201,7 @@
       </plugin>
     </plugins>
   </build>
-  <url/>
+  <url />
   <groupId>com.wissam</groupId>
   <artifactId>Applier</artifactId>
 </project>

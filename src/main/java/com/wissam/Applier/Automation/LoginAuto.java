@@ -4,12 +4,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.BrowserContext.StorageStateOptions;
 import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.AriaRole;
+import com.microsoft.playwright.options.LoadState;
 import com.wissam.Applier.Model.User;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +28,32 @@ public class LoginAuto {
 
   private final ObjectProvider<BrowserContext> contextProvider;
   private final Browser browser;
+
+  @Value("${greenhouse.email}")
+  private String email;
+
+  public Page loginGreenHouse(User user) {
+    Path statePath = Paths.get(email + ".json");
+    System.out.println("Using email " + email);
+    BrowserContext context = contextProvider.getObject(browser, statePath);
+    Page page = context.newPage();
+    page.navigate("https://my.greenhouse.io/dashboard");
+    page.waitForTimeout(2000);
+    if (page.url().startsWith("https://my.greenhouse.io/dashboard")) {
+      return page;
+    }
+    page.navigate("https://my.greenhouse.io/users/sign_in");
+    page.waitForLoadState(LoadState.DOMCONTENTLOADED);
+    page.getByPlaceholder("Email").fill(email);
+    page.waitForTimeout(3000);
+    page.getByRole(AriaRole.BUTTON,
+        new Page.GetByRoleOptions().setName("Send security code")).click();
+    page.waitForTimeout(30000);
+    page.waitForURL("https://my.greenhouse.io/dashboard");
+    page.waitForTimeout(5000);
+    context.storageState(new StorageStateOptions().setPath(statePath));
+    return page;
+  }
 
   public Page oktaLogin(User user) {
     Path statePath = Paths.get(user.getEmail() + ".json");
