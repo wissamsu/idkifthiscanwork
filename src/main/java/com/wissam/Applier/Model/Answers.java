@@ -1,5 +1,6 @@
 package com.wissam.Applier.Model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,8 +33,10 @@ public class Answers {
   @JoinColumn(name = "user_id")
   private User user;
 
+  @Column(columnDefinition = "TEXT")
   private String question;
 
+  @Column(columnDefinition = "TEXT")
   private String answer;
 
 }
