@@ -13,10 +13,10 @@ services:
   #     keycloak:
   #       condition: service_healthy
   lightpanda:
-        image: lightpanda/browser:latest
-        restart: unless-stopped
-        ports:
-            - '127.0.0.1:9222:9222'
+    image: lightpanda/browser:latest
+    restart: unless-stopped
+    ports:
+      - '127.0.0.1:9222:9222'
   postgres:
     image: "postgres:latest"
     environment:
